@@ -1,0 +1,70 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    maven { url 'https://s01.oss.sonatype.org' }
+    mavenLocal()
+    google()
+    gradlePluginPortal()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://jitpack.io' }
+  }
+  dependencies {
+    classpath group: 'org.mini2Dx', name: 'butler', version: '2.1.0'
+    classpath "org.wisepersist:gwt-gradle-plugin:$gwtPluginVersion"
+
+  }
+}
+
+allprojects {
+  apply plugin: 'eclipse'
+  apply plugin: 'idea'
+}
+
+configure(subprojects) {
+  apply plugin: 'java-library'
+  sourceCompatibility = 1.8
+  compileJava {
+    options.incremental = true
+  }
+}
+
+subprojects {
+  version = '1.0.0'
+  ext.appName = 'Chess'
+  repositories {
+    mavenCentral()
+    maven { url 'https://s01.oss.sonatype.org' }
+    mavenLocal()
+    gradlePluginPortal()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://jitpack.io' }
+  }
+}
+
+
+
+project(":html") {
+  apply plugin: "org.mini2Dx.butler"
+
+  butler {
+    user = "hirshi001"
+    game = "bnchess"
+    allChannelsPostfix = "-beta"
+  }
+
+  task butlerPush(type: org.mini2Dx.butler.task.PushTask) {
+    dependsOn("dist")
+    binDirectory = file("${project.rootDir}/html/build/dist");
+    channel = "html"
+    doLast {
+      println "Pushed to https://${butler.user}.itch.io/${butler.game}"
+    }
+  }
+}
+
+
+eclipse.project.name = 'Chess' + '-parent'
+
+
