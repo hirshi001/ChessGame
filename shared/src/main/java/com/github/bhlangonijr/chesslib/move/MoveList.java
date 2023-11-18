@@ -589,7 +589,7 @@ public class MoveList extends LinkedList<Move> implements List<Move> {
     // decode SAN to move
     protected Move decodeSan(Board board, String san, Side side) throws MoveConversionException {
 
-        if (san.equalsIgnoreCase("Z0")) {
+        if ("Z0".equalsIgnoreCase(san)) {
             return nullMove;
         }
         san = normalizeSan(san);
@@ -604,8 +604,8 @@ public class MoveList extends LinkedList<Move> implements List<Move> {
             strPromotion = String.valueOf(lastChar);
         }
 
-        if (san.equals("O-O") || san.equals("O-O-O")) { // is castle
-            if (san.equals("O-O")) {
+        if ("O-O".equals(san) || "O-O-O".equals(san)) { // is castle
+            if ("O-O".equals(san)) {
                 return board.getContext().getoo(side);
             } else {
                 return board.getContext().getooo(side);

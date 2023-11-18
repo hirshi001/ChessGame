@@ -44,7 +44,7 @@ public class TimeControl {
     public static TimeControl parseFromString(String s) {
         TimeControl tc = new TimeControl();
         s = s.replace("|", "+");
-        if (s.equals("?") || s.equals("-")) {
+        if ("?".equals(s) || "-".equals(s)) {
             tc.setTimeControlType(TimeControlType.UNKNOW);
             return tc;
         }

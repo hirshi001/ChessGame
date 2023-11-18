@@ -807,7 +807,7 @@ public class Board implements Cloneable, BoardEvent {
 
         if (flags.length >= 3) {
             String s = flags[2].toUpperCase().trim();
-            if (!s.equals("-")) {
+            if (!"-".equals(s)) {
                 Square ep = Square.valueOf(s);
                 setEnPassant(ep);
                 setEnPassantTarget(findEnPassantTarget(ep, sideToMove));
