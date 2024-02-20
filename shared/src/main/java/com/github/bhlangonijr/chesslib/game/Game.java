@@ -792,12 +792,12 @@ public class Game {
                 getNag().put(variantIndex, token);
                 continue;
             }
-            if (token.equals("{") &&
+            if ("{".equals(token) &&
                     !(onLineCommentBlock || onCommentBlock)) {
                 onCommentBlock = true;
                 comment = new StringBuilder();
                 continue;
-            } else if (token.equals("}") && !onLineCommentBlock) {
+            } else if ("}".equals(token) && !onLineCommentBlock) {
                 onCommentBlock = false;
                 if (comment != null) {
                     if (getComments() == null) {
@@ -807,23 +807,23 @@ public class Game {
                 }
                 comment = null;
                 continue;
-            } else if (token.equals(";") && !onCommentBlock) {
+            } else if (";".equals(token) && !onCommentBlock) {
                 onLineCommentBlock = true;
                 comment = new StringBuilder();
                 continue;
-            } else if (token.equals("\n") && onLineCommentBlock) {
+            } else if ("\n".equals(token) && onLineCommentBlock) {
                 onLineCommentBlock = false;
                 if (comment != null) {
                     getComments().put(variantIndex, comment.toString());
                 }
                 comment = null;
                 continue;
-            } else if (token.equals("(") &&
+            } else if ("(".equals(token) &&
                     !(onCommentBlock) || onLineCommentBlock) {
                 onVariationBlock = true;
                 variation.add(new RTextEntry(variantIndex));
                 continue;
-            } else if (token.equals(")") && onVariationBlock &&
+            } else if (")".equals(token) && onVariationBlock &&
                     !(onCommentBlock) || onLineCommentBlock) {
                 onVariationBlock = false;
                 if (variation != null) {
